@@ -952,6 +952,7 @@ def health():
     }), 200
 
 if __name__ == '__main__':
+    port = int(os.environ.get('PORT', 5000))
     print("Starting Flask API server...")
-    print("API will be available at http://localhost:5000")
-    app.run(host='0.0.0.0', port=5000, debug=True)
+    print(f"API will be available at http://localhost:{port}")
+    app.run(host='0.0.0.0', port=port, debug=False)
