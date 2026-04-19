@@ -6,7 +6,7 @@ import hashlib
 import secrets
 from datetime import datetime, timedelta
 from functools import wraps
-from flask import Flask, request, jsonify, g
+from flask import Flask, request, jsonify, g, send_from_directory
 from flask_cors import CORS
 
 from pathlib import Path
@@ -943,6 +943,11 @@ def get_milestones():
         "name": row[1],
         "achieved_at": row[2]
     } for row in rows]), 200
+
+@app.route('/')
+@app.route('/<path:path>')
+def serve_frontend(path='index.html'):
+    return send_from_directory(os.path.dirname(__file__), path if path != '' else 'index.html')
 
 @app.route('/health', methods=['GET'])
 def health():
